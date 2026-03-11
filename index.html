@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="en" style="background:#F5F0E8;color-scheme:light;">
+<head>
+<meta charset="UTF-8">
+<meta name="color-scheme" content="light">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Philadelphia Food as Medicine Coalition</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,300;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+
+:root{
+  --cream:#F5F0E8;
+  --cream-dark:#EDE7D9;
+  --black:#0A0A0A;
+  --red:#C0281A;
+  --blue:#0F2B5B;
+  --blue-mid:#1B4090;
+  --rule:#D0C8B8;
+  --mid:#6B6560;
+  --text:#1A1714;
+}
+
+html,body{
+  background-color:#F5F0E8 !important;
+  color:#1A1714;
+  font-family:'DM Sans',system-ui,sans-serif;
+  overflow-x:hidden;
+}
+
+/* ── NAV ── */
+nav{
+  position:sticky;top:0;z-index:200;
+  background:#F5F0E8;
+  border-bottom:1px solid var(--rule);
+  padding:0 48px;
+  display:flex;align-items:center;justify-content:space-between;
+  height:56px;
+}
+.nav-logo{
+  font-size:12px;font-weight:700;
+  letter-spacing:0.08em;text-transform:uppercase;
+  color:var(--black);text-decoration:none;
+  display:flex;align-items:center;gap:10px;
+}
+.nav-dot{width:8px;height:8px;border-radius:50%;background:var(--red);flex-shrink:0;}
+.nav-links{display:flex;align-items:center;gap:32px;list-style:none;}
+.nav-links a{
+  font-size:11px;font-weight:500;
+  letter-spacing:0.06em;text-transform:uppercase;
+  color:var(--mid);text-decoration:none;transition:color 0.15s;
+}
+.nav-links a:hover{color:var(--black);}
+.nav-cta{
+  font-size:11px;font-weight:700;
+  letter-spacing:0.1em;text-transform:uppercase;
+  color:white !important;background:var(--red);
+  padding:8px 20px;text-decoration:none;transition:background 0.15s;
+}
+.nav-cta:hover{background:#a82015 !important;}
+
+/* ── HERO ── */
+.hero{
+  background-color:#F5F0E8 !important;
+  min-height:92vh;
+  display:grid;grid-template-columns:1fr 1fr;
+  align-items:center;
+  padding:80px 48px;gap:64px;
+  border-bottom:1px solid var(--rule);
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:5px;
+  background:linear-gradient(90deg,var(--red) 33.33%,white 33.33%,white 66.66%,var(--blue) 66.66%);
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--black);color:white;
+  font-size:10px;font-weight:700;
+  letter-spacing:0.35em;text-transform:uppercase;
+  padding:6px 14px;margin-bottom:36px;
+}
+.hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--red);}
+.hero-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(80px,11vw,152px);
+  line-height:0.88;letter-spacing:0.01em;
+  color:var(--black);margin-bottom:40px;
+}
+.hero-title .red{color:var(--red);}
+.hero-sub{
+  font-family:'DM Serif Display',serif;font-style:italic;
+  font-size:clamp(18px,2vw,24px);
+  line-height:1.45;color:var(--text);
+  max-width:480px;margin-bottom:44px;
+}
+.hero-declare{
+  font-size:14px;font-weight:500;color:var(--mid);
+  letter-spacing:0.04em;
+  border-left:3px solid var(--red);
+  padding-left:16px;line-height:1.6;
+}
+.hero-stat-stack{display:flex;flex-direction:column;gap:2px;}
+.hero-stat{
+  background:var(--black);
+  padding:32px 36px;
+  display:flex;flex-direction:column;
+  position:relative;overflow:hidden;
+}
+.hero-stat:nth-child(2){background:var(--red);}
+.hero-stat:nth-child(3){background:var(--blue);}
+.hero-stat-num{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(56px,6vw,80px);
+  color:white;line-height:1;letter-spacing:0.01em;
+}
+.hero-stat-label{
+  font-size:13px;font-weight:400;
+  color:rgba(255,255,255,0.85);margin-top:6px;line-height:1.5;
+}
+.hero-stat-source{font-size:10px;letter-spacing:0.05em;color:rgba(255,255,255,0.45);margin-top:8px;}
+
+/* ── SOURCE TOOLTIP ── */
+.src{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:16px;height:16px;border-radius:50%;
+  background:var(--rule);color:var(--mid);
+  font-size:9px;font-weight:700;font-style:normal;
+  cursor:pointer;position:relative;
+  vertical-align:super;margin-left:2px;
+  font-family:'DM Sans',sans-serif;
+  letter-spacing:0;text-transform:none;
+  transition:background 0.15s,color 0.15s;
+  flex-shrink:0;
+}
+.src:hover,.src.active{background:var(--blue);color:white;}
+.src-tip{
+  display:none;position:absolute;
+  bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);
+  background:var(--black);color:rgba(255,255,255,0.9);
+  font-size:11px;line-height:1.55;font-weight:400;
+  padding:12px 16px;width:260px;z-index:500;
+  box-shadow:0 4px 24px rgba(0,0,0,0.25);
+  pointer-events:none;
+}
+.src-tip a{color:#6b90d4;text-decoration:underline;}
+.src-tip::after{
+  content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);
+  border:6px solid transparent;border-top-color:var(--black);
+}
+.src:hover .src-tip,.src.active .src-tip{display:block;}
+/* on dark backgrounds */
+.on-dark .src{background:rgba(255,255,255,0.15);color:rgba(255,255,255,0.7);}
+.on-dark .src:hover,.on-dark .src.active{background:white;color:var(--black);}
+
+/* ── STATS STRIP ── */
+.stats-strip{background:var(--black) !important;padding:0 48px;border-bottom:1px solid #000;}
+.stats-strip-inner{
+  max-width:1100px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(4,1fr);
+}
+.stat-col{padding:56px 32px;border-right:1px solid #2a2a2a;display:flex;flex-direction:column;}
+.stat-col:last-child{border-right:none;}
+.stat-num{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(52px,5.5vw,76px);
+  color:white;line-height:1;letter-spacing:0.01em;
+  margin-bottom:8px;display:flex;align-items:flex-end;gap:6px;
+}
+.stat-num .accent{color:var(--red);}
+.stat-num .accentb{color:#6b90d4;}
+.stat-desc{
+  font-size:13px;font-weight:500;
+  letter-spacing:0.05em;text-transform:uppercase;
+  color:rgba(255,255,255,0.75);line-height:1.5;flex:1;
+}
+.stat-src{font-size:10px;letter-spacing:0.04em;color:rgba(255,255,255,0.4);margin-top:16px;}
+
+/* ── SECTION SHARED ── */
+.section-pad{padding:96px 48px;border-bottom:1px solid var(--rule);background-color:#F5F0E8 !important;}
+.section-inner{max-width:1100px;margin:0 auto;}
+.label{
+  font-size:11px;font-weight:700;
+  letter-spacing:0.45em;text-transform:uppercase;
+  color:var(--red);margin-bottom:40px;
+  display:flex;align-items:center;gap:12px;
+}
+.label::after{content:'';width:40px;height:2px;background:var(--red);}
+.section-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(48px,7vw,96px);
+  line-height:0.92;letter-spacing:0.01em;
+  color:var(--black);margin-bottom:40px;
+}
+.section-title .red{color:var(--red);}
+.section-title .blue{color:var(--blue);}
+p.body{
+  font-size:clamp(15px,1.4vw,18px);
+  line-height:1.78;color:#3a3530;font-weight:300;
+  margin-bottom:20px;
+}
+p.body strong{color:var(--black);font-weight:600;}
+
+/* ── TWO COL ── */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:80px;}
+.col-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(36px,4vw,56px);
+  line-height:0.95;letter-spacing:0.01em;
+  color:var(--black);margin-bottom:28px;
+}
+
+/* ── ORG SECTION ── */
+.org-section{background:var(--cream-dark) !important;padding:96px 48px;border-bottom:1px solid var(--rule);}
+.org-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:48px;background:var(--rule);}
+.org-card{background:#F5F0E8 !important;padding:44px 36px;transition:background 0.2s;}
+.org-card:hover{background:white !important;}
+.org-name{font-size:10px;font-weight:700;letter-spacing:0.35em;text-transform:uppercase;color:var(--red);margin-bottom:16px;display:block;}
+.org-stat{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(44px,4vw,60px);
+  color:var(--black);display:block;
+  line-height:1;margin-bottom:14px;letter-spacing:0.01em;
+}
+.org-desc{font-size:14px;line-height:1.7;color:#4a4540;font-weight:300;}
+.org-desc strong{color:var(--black);font-weight:600;}
+
+/* ── BELIEFS ── */
+.beliefs-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:48px;background:var(--rule);}
+.belief-card{background:#F5F0E8 !important;padding:44px 40px;transition:background 0.2s;}
+.belief-card:hover{background:white !important;}
+.belief-num{font-family:'Bebas Neue',sans-serif;font-size:48px;color:var(--red);line-height:1;margin-bottom:16px;display:block;opacity:0.3;}
+.belief-text{font-size:clamp(14px,1.3vw,17px);line-height:1.7;color:var(--text);}
+.belief-text em{font-style:italic;color:var(--mid);}
+.belief-stat{
+  display:block;margin-top:14px;
+  font-size:11px;font-weight:700;
+  letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--red);border-top:1px solid var(--rule);padding-top:12px;
+}
+
+/* ── FOUNDING VOICES ── */
+.voices-section{background:#F5F0E8 !important;padding:96px 48px;border-bottom:1px solid var(--rule);}
+.voices-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:48px;background:var(--rule);}
+.voice-card{
+  background:var(--cream-dark) !important;
+  padding:36px 28px;
+  display:flex;flex-direction:column;
+  transition:background 0.2s;
+}
+.voice-card:hover{background:white !important;}
+.voice-card.invite{
+  background:transparent !important;
+  border:2px dashed var(--rule);
+  align-items:center;justify-content:center;text-align:center;
+  cursor:pointer;
+}
+.voice-card.invite:hover{border-color:var(--red);background:transparent !important;}
+.voice-tag{
+  font-size:9px;font-weight:700;
+  letter-spacing:0.35em;text-transform:uppercase;
+  color:var(--red);margin-bottom:14px;display:block;
+}
+.voice-name{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:28px;color:var(--black);
+  line-height:1;margin-bottom:6px;letter-spacing:0.01em;
+}
+.voice-title{font-size:12px;color:var(--mid);line-height:1.5;font-weight:400;}
+.voice-invite-text{font-size:13px;color:var(--mid);line-height:1.6;}
+.voice-invite-icon{font-size:28px;color:var(--rule);margin-bottom:12px;line-height:1;}
+
+/* ── NATIONAL ── */
+.national-section{background:var(--blue) !important;padding:96px 48px;border-bottom:1px solid #0a1f44;}
+.national-section .label{color:rgba(255,255,255,0.45);}
+.national-section .label::after{background:rgba(255,255,255,0.25);}
+.national-section .section-title{color:white;}
+.national-section p.body{color:rgba(255,255,255,0.75);}
+.national-section p.body strong{color:white;}
+.nat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:48px;background:rgba(255,255,255,0.08);}
+.nat-card{background:rgba(255,255,255,0.05) !important;padding:40px 32px;transition:background 0.2s;}
+.nat-card:hover{background:rgba(255,255,255,0.1) !important;}
+.nat-abbr{font-family:'Bebas Neue',sans-serif;font-size:42px;color:white;display:block;margin-bottom:6px;line-height:1;}
+.nat-name{font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.4);display:block;margin-bottom:16px;}
+.nat-desc{font-size:13px;line-height:1.7;color:rgba(255,255,255,0.75);font-weight:300;}
+.nat-badge{
+  display:inline-block;margin-bottom:12px;
+  font-size:9px;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;
+  background:var(--red);color:white;padding:3px 8px;
+}
+
+/* ── DECLARATION ── */
+.declaration{background:var(--red) !important;padding:112px 48px;border-bottom:1px solid #8b1a10;}
+.declaration-inner{max-width:880px;margin:0 auto;}
+.declaration .label{color:rgba(255,255,255,0.5);}
+.declaration .label::after{background:rgba(255,255,255,0.35);}
+.declare-text{
+  font-family:'DM Serif Display',serif;font-style:italic;
+  font-size:clamp(22px,3vw,38px);
+  line-height:1.45;color:white;margin-bottom:48px;font-weight:400;
+}
+.declare-text strong{
+  font-style:normal;font-weight:400;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.15em;letter-spacing:0.02em;
+}
+.declare-attr{font-size:12px;font-weight:700;letter-spacing:0.35em;text-transform:uppercase;color:rgba(255,255,255,0.5);}
+
+/* ── CTA ── */
+.cta{background:#F5F0E8 !important;padding:112px 48px;text-align:center;display:flex;flex-direction:column;align-items:center;}
+.cta-eyebrow{font-size:11px;font-weight:700;letter-spacing:0.45em;text-transform:uppercase;color:var(--mid);margin-bottom:28px;}
+.cta-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(72px,13vw,180px);
+  line-height:0.88;letter-spacing:0.01em;
+  color:var(--black);margin-bottom:44px;
+}
+.cta-title .red{color:var(--red);}
+.cta-title .blue{color:var(--blue);}
+.cta-body{
+  font-size:clamp(15px,1.5vw,18px);
+  line-height:1.75;color:#4a4540;
+  max-width:520px;margin-bottom:52px;font-weight:300;
+}
+.cta-body strong{color:var(--black);font-weight:600;}
+
+/* ── DUAL SIGN PATHS ── */
+.sign-paths{display:grid;grid-template-columns:1fr 1fr;gap:2px;width:100%;max-width:860px;background:var(--rule);margin-bottom:32px;}
+.sign-path{
+  background:#F5F0E8 !important;
+  padding:52px 44px;text-align:left;
+  cursor:pointer;transition:background 0.2s;
+  border:none;outline:none;
+  display:flex;flex-direction:column;gap:16px;
+}
+.sign-path:hover{background:white !important;}
+.sign-path-tag{font-size:10px;font-weight:700;letter-spacing:0.35em;text-transform:uppercase;color:var(--mid);}
+.sign-path-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(36px,4vw,52px);
+  color:var(--black);line-height:0.95;letter-spacing:0.01em;
+}
+.sign-path-desc{font-size:14px;line-height:1.65;color:#4a4540;font-weight:300;}
+.sign-path-cta{
+  display:inline-block;
+  font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;
+  color:white;background:var(--black);
+  padding:12px 24px;margin-top:8px;
+  transition:background 0.15s;align-self:flex-start;
+}
+.sign-path:first-child .sign-path-cta{background:var(--red);}
+.sign-path:first-child:hover .sign-path-cta{background:#a82015;}
+.sign-path:last-child .sign-path-cta{background:var(--blue);}
+.sign-path:last-child:hover .sign-path-cta{background:#0a1f44;}
+
+.cta-details{font-size:11px;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;color:#a09888;margin-top:24px;}
+
+/* ── MODAL ── */
+.modal-overlay{
+  display:none;position:fixed;inset:0;
+  background:rgba(10,10,10,0.75);
+  z-index:1000;align-items:center;justify-content:center;
+  padding:24px;
+}
+.modal-overlay.open{display:flex;}
+.modal{
+  background:#F5F0E8;
+  width:100%;max-width:600px;
+  max-height:90vh;overflow-y:auto;
+  position:relative;
+}
+.modal-flag{height:4px;background:linear-gradient(90deg,var(--red) 33.33%,white 33.33%,white 66.66%,var(--blue) 66.66%);}
+.modal-header{padding:36px 44px 0;}
+.modal-close{
+  position:absolute;top:20px;right:24px;
+  background:none;border:none;cursor:pointer;
+  font-size:20px;color:var(--mid);line-height:1;
+  transition:color 0.15s;
+}
+.modal-close:hover{color:var(--black);}
+.modal-tag{font-size:10px;font-weight:700;letter-spacing:0.35em;text-transform:uppercase;color:var(--red);margin-bottom:12px;}
+.modal-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(36px,5vw,56px);
+  color:var(--black);line-height:0.95;margin-bottom:8px;
+}
+.modal-sub{font-size:14px;line-height:1.6;color:var(--mid);margin-bottom:36px;font-weight:300;}
+.modal-body{padding:0 44px 44px;}
+.form-group{margin-bottom:20px;}
+.form-group label{
+  display:block;font-size:11px;font-weight:700;
+  letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--mid);margin-bottom:8px;
+}
+.form-group input,.form-group textarea,.form-group select{
+  width:100%;background:white;
+  border:1px solid var(--rule);border-radius:0;
+  padding:13px 16px;
+  font-family:'DM Sans',sans-serif;
+  font-size:14px;color:var(--black);
+  transition:border-color 0.15s;outline:none;
+  appearance:none;
+}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--blue);}
+.form-group textarea{resize:vertical;min-height:100px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.form-submit{
+  width:100%;padding:16px;
+  font-family:'DM Sans',sans-serif;
+  font-size:12px;font-weight:700;
+  letter-spacing:0.25em;text-transform:uppercase;
+  color:white;border:none;cursor:pointer;
+  transition:background 0.15s;margin-top:8px;
+}
+.form-submit.red-btn{background:var(--red);}
+.form-submit.red-btn:hover{background:#a82015;}
+.form-submit.blue-btn{background:var(--blue);}
+.form-submit.blue-btn:hover{background:#0a1f44;}
+.form-note{font-size:12px;color:var(--mid);text-align:center;margin-top:16px;line-height:1.5;}
+
+/* success state */
+.success-state{
+  display:none;padding:60px 44px;
+  text-align:center;flex-direction:column;align-items:center;
+}
+.success-state.show{display:flex;}
+.success-icon{font-size:40px;margin-bottom:20px;}
+.success-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:48px;color:var(--black);margin-bottom:16px;letter-spacing:0.01em;
+}
+.success-body{font-size:15px;line-height:1.7;color:var(--mid);max-width:420px;}
+
+/* ── FOOTER ── */
+footer{background:var(--black) !important;padding:32px 48px;}
+.footer-flag{height:3px;width:100%;background:linear-gradient(90deg,var(--red) 33.33%,white 33.33%,white 66.66%,var(--blue) 66.66%);margin-bottom:28px;}
+.footer-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;}
+.footer-logo{font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.45);}
+.footer-credit{font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.2);}
+.footer-links{display:flex;gap:24px;}
+.footer-links a{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.3);text-decoration:none;transition:color 0.15s;}
+.footer-links a:hover{color:rgba(255,255,255,0.6);}
+
+/* ── ANIMATIONS ── */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.6s ease,transform 0.6s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* ── RESPONSIVE ── */
+@media(max-width:960px){
+  nav{padding:0 24px;}
+  .nav-links{display:none;}
+  .hero{grid-template-columns:1fr;padding:60px 24px 48px;min-height:auto;gap:40px;}
+  .hero-right{display:none;}
+  .section-pad,.org-section,.national-section,.voices-section,.declaration,.cta{padding:72px 24px;}
+  .stats-strip{padding:0 24px;}
+  .stats-strip-inner{grid-template-columns:repeat(2,1fr);}
+  .stat-col{padding:40px 20px;border-right:none;border-bottom:1px solid #2a2a2a;}
+  .stat-col:nth-child(even){border-left:1px solid #2a2a2a;}
+  .stat-col:last-child{border-bottom:none;}
+  .two-col{grid-template-columns:1fr;gap:48px;}
+  .beliefs-grid{grid-template-columns:1fr;}
+  .org-grid{grid-template-columns:1fr 1fr;}
+  .nat-grid{grid-template-columns:1fr 1fr;}
+  .voices-grid{grid-template-columns:1fr 1fr;}
+  .sign-paths{grid-template-columns:1fr;}
+  .modal-header{padding:36px 24px 0;}
+  .modal-body{padding:0 24px 36px;}
+  .form-row{grid-template-columns:1fr;}
+}
+@media(max-width:560px){
+  .org-grid,.nat-grid,.voices-grid{grid-template-columns:1fr;}
+  .stats-strip-inner{grid-template-columns:1fr;}
+  .stat-col{border-left:none !important;}
+  .stat-col:last-child{border-bottom:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#top" class="nav-logo">
+    <span class="nav-dot"></span>
+    Phila. Food as Medicine Coalition
+  </a>
+  <ul class="nav-links">
+    <li><a href="#situation">The Problem</a></li>
+    <li><a href="#orgs">Partners</a></li>
+    <li><a href="#declaration">Declaration</a></li>
+    <li><a href="#" class="nav-cta" onclick="openModal('individual');return false;">Sign the Declaration</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero" id="top">
+  <div class="hero-left">
+    <div class="hero-badge reveal">
+      <span class="hero-badge-dot"></span>
+      Philadelphia · Est. 2026 · A Founding Coalition
+    </div>
+    <h1 class="hero-title reveal">
+      Food<br>
+      <span class="red">Is</span><br>
+      Medicine.
+    </h1>
+    <p class="hero-sub reveal">
+      This city declared independence once.<br>
+      Time to do it again.
+    </p>
+    <p class="hero-declare reveal">
+      Philadelphia, Pennsylvania<br>
+      Fall 2026 · Inaugural Summit
+    </p>
+  </div>
+  <div class="hero-right reveal">
+    <div class="hero-stat-stack">
+      <div class="hero-stat">
+        <span class="hero-stat-num">20 Years</span>
+        <span class="hero-stat-label">Life expectancy gap — North Philly to Society Hill. Five miles. Largest of any major U.S. city.</span>
+        <span class="hero-stat-source">VCU / Robert Wood Johnson Foundation</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">15%</span>
+        <span class="hero-stat-label">Of Philadelphia households face food insecurity — above the 13.5% national average.</span>
+        <span class="hero-stat-source">Feeding America, 2024</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">10:1</span>
+        <span class="hero-stat-label">Unhealthy food stores outnumber healthy options across the city.</span>
+        <span class="hero-stat-source">Philadelphia Dept. of Public Health</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="stats-strip-inner">
+    <div class="stat-col reveal">
+      <div class="stat-num">
+        <span class="count" data-target="20">0</span><span class="accent">yr</span>
+        <span class="src on-dark" tabindex="0">1
+          <span class="src-tip">Life expectancy gap: North Philadelphia (68 yrs) vs. Society Hill (88 yrs) — largest gap of any major U.S. city.<br><br><a href="https://www.rwjf.org/en/insights/our-research/2013/01/city-maps.html" target="_blank">VCU Center on Society and Health / RWJF →</a></span>
+        </span>
+      </div>
+      <div class="stat-desc">Life expectancy gap — North Philly vs. Society Hill. Largest in the nation.</div>
+    </div>
+    <div class="stat-col reveal">
+      <div class="stat-num">
+        <span class="count" data-target="500">0</span><span class="accent">K</span>
+        <span class="src on-dark" tabindex="0">2
+          <span class="src-tip">Approximately 496,000 Philadelphians rely on SNAP benefits for food access.<br><br><a href="https://www.phila.gov/services/payments-assistance-taxes/apply-for-cash-food-assistance/" target="_blank">City of Philadelphia, 2024 →</a></span>
+        </span>
+      </div>
+      <div class="stat-desc">Philadelphians relying on SNAP for food support.</div>
+    </div>
+    <div class="stat-col reveal">
+      <div class="stat-num">
+        <span class="accentb">10</span>:1
+        <span class="src on-dark" tabindex="0">3
+          <span class="src-tip">Unhealthy food retailers outnumber healthy grocery options by a ratio of 10:1 across Philadelphia neighborhoods.<br><br><a href="https://www.phila.gov/media/20200924155528/EHS-foodaccess-508pdfUA.pdf" target="_blank">Philadelphia Dept. of Public Health →</a></span>
+        </span>
+      </div>
+      <div class="stat-desc">Ratio of unhealthy to healthy food stores citywide.</div>
+    </div>
+    <div class="stat-col reveal">
+      <div class="stat-num">
+        <span class="count" data-target="30">0</span><span class="accent">%</span>
+        <span class="src on-dark" tabindex="0">4
+          <span class="src-tip">More than 30% of Philadelphia children experience food insecurity — disproportionately concentrated in North and West Philadelphia.<br><br><a href="https://generocity.org/" target="_blank">Generocity / City data, 2024 →</a></span>
+        </span>
+      </div>
+      <div class="stat-desc">Of Philadelphia children experience food insecurity.</div>
+    </div>
+  </div>
+</div>
+
+<!-- THE CASE -->
+<div class="section-pad" id="situation">
+  <div class="section-inner">
+    <div class="two-col">
+      <div>
+        <div class="label reveal">The problem</div>
+        <h2 class="col-title reveal">This city is sick.<br>We know why.</h2>
+        <p class="body reveal">
+          Philadelphia's poverty rate is <strong>23.1% — double the national average.</strong><span class="src" tabindex="0">5<span class="src-tip">Philadelphia poverty rate: 23.1%, compared to the national average of approximately 11.5%.<br><br><a href="https://www.census.gov/quickfacts/philadelphiacountypennsylvania" target="_blank">U.S. Census Bureau →</a></span></span>
+          In North and West Philadelphia, 30–45% of residents live below the federal poverty line,
+          and over a third of households in those neighborhoods face food insecurity.
+        </p>
+        <p class="body reveal">
+          A child born today in North Philadelphia can expect to die <strong>20 years earlier</strong>
+          than one born in Society Hill — five miles away.<span class="src" tabindex="0">1<span class="src-tip">Life expectancy: 68 years in North Philadelphia vs. 88 years in Society Hill — the largest gap of any major American city.<br><br><a href="https://www.rwjf.org/en/insights/our-research/2013/01/city-maps.html" target="_blank">VCU / RWJF →</a></span></span>
+          That gap is the largest of any major American city. Larger than Chicago. Larger than New York.
+        </p>
+        <p class="body reveal">
+          This isn't fate. It's food. And food is something we can change.
+        </p>
+      </div>
+      <div>
+        <div class="label reveal">The opportunity</div>
+        <h2 class="col-title reveal">No city is better positioned to lead.</h2>
+        <p class="body reveal">
+          Philadelphia pioneered health insurance in America. Trained more physicians
+          than almost any city on earth. Built a research infrastructure — Temple, Drexel,
+          Jefferson, Penn — that sits directly inside the neighborhoods most affected.
+          We have world-class health systems and a Pennsylvania farming sector
+          that supplies the entire Eastern Seaboard, less than 50 miles from City Hall.
+        </p>
+        <p class="body reveal">
+          The Robert Wood Johnson Foundation has documented our crisis in detail.
+          Organizations like MANNA, Philabundance, and The Food Trust have been
+          delivering solutions for decades. The American Heart Association and Diabetes
+          Association are already here, already working.
+        </p>
+        <p class="body reveal">
+          <strong>We don't need to build the infrastructure. We need to connect it.</strong>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ORG PROOF -->
+<div class="org-section" id="orgs">
+  <div class="section-inner">
+    <div class="label reveal">Organizations already doing the work</div>
+    <h2 class="section-title reveal">The pieces<br><span class="red">are all here.</span></h2>
+    <div class="org-grid reveal">
+
+      <div class="org-card">
+        <span class="org-name">MANNA</span>
+        <span class="org-stat">1.3M<span class="src" tabindex="0" style="font-size:12px;vertical-align:middle;">6<span class="src-tip">MANNA delivered 1.3 million medically tailored meals in FY2024, with 9,400+ volunteers contributing 56,000+ hours.<br><br><a href="https://mannapa.org/our-impact/" target="_blank">MANNA Annual Report FY2024 →</a></span></span></span>
+        <p class="org-desc">
+          Medically tailored meals delivered in FY24 alone — by 9,400+ volunteers.
+          MANNA's model produces <strong>31% lower monthly healthcare costs</strong>
+          and cuts hospitalizations in half.
+        </p>
+      </div>
+
+      <div class="org-card">
+        <span class="org-name">Philabundance</span>
+        <span class="org-stat">50M lbs<span class="src" tabindex="0" style="font-size:12px;vertical-align:middle;">7<span class="src-tip">Philabundance distributes 50+ million pounds of food annually, serving 90,000 people weekly across 9 counties.<br><br><a href="https://www.philabundance.org/our-impact/" target="_blank">Philabundance Impact Report →</a></span></span></span>
+        <p class="org-desc">
+          Of food distributed every year, serving <strong>90,000 people weekly</strong>
+          across 9 counties. The region's largest hunger-relief organization,
+          operating since 1984.
+        </p>
+      </div>
+
+      <div class="org-card">
+        <span class="org-name">The Food Trust</span>
+        <span class="org-stat">35 States<span class="src" tabindex="0" style="font-size:12px;vertical-align:middle;">8<span class="src-tip">The Food Trust pioneered the Pennsylvania Fresh Food Financing Initiative, a model since replicated in 35 states, leveraging $1B+ in private investment.<br><br><a href="https://thefoodtrust.org/" target="_blank">The Food Trust →</a></span></span></span>
+        <p class="org-desc">
+          Pioneered the Pennsylvania Fresh Food Financing Initiative —
+          a model replicated across the country, leveraging over
+          <strong>$1 billion in private investment</strong> for healthy food access.
+        </p>
+      </div>
+
+      <div class="org-card">
+        <span class="org-name">Independence Blue Cross</span>
+        <span class="org-stat">1938</span>
+        <p class="org-desc">
+          Philadelphia's original health insurer — the institution that first proved
+          that a whole city could share health risk together.
+          <strong>The hometown health plan for 7+ million people.</strong>
+        </p>
+      </div>
+
+      <div class="org-card">
+        <span class="org-name">Temple University CPH</span>
+        <span class="org-stat">306K sqft</span>
+        <p class="org-desc">
+          The newly opened College of Public Health — state-of-the-art research,
+          teaching kitchen, and instructional facilities in the heart of
+          North Philadelphia. Right where it's needed most.
+        </p>
+      </div>
+
+      <div class="org-card">
+        <span class="org-name">FareRx</span>
+        <span class="org-stat">Philly</span>
+        <p class="org-desc">
+          Philadelphia's own medically tailored grocery and meal delivery organization —
+          pairing RD-led clinical care with food delivery for members managing
+          <strong>chronic conditions across the city and beyond.</strong>
+        </p>
+      </div>
+
+      <div class="org-card">
+        <span class="org-name">Pennsylvania Farms</span>
+        <span class="org-stat">&lt;50 mi</span>
+        <p class="org-desc">
+          Pennsylvania's agricultural sector sits less than 50 miles from City Hall,
+          supplying the Eastern Seaboard. Farmers are healthcare providers.
+          <strong>They grow the medicine.</strong> They belong here as founders.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- BELIEFS -->
+<div class="section-pad">
+  <div class="section-inner">
+    <div class="label reveal">What we believe</div>
+    <h2 class="section-title reveal">Eight things<br><span class="blue">we know to be true.</span></h2>
+    <div class="beliefs-grid reveal">
+      <div class="belief-card">
+        <span class="belief-num">01</span>
+        <p class="belief-text">
+          Food is medicine. Not a metaphor. Not a trend. A clinical fact —
+          and one Philadelphia's institutions are more qualified than almost
+          anyone on earth to prove at scale.
+        </p>
+      </div>
+      <div class="belief-card">
+        <span class="belief-num">02</span>
+        <p class="belief-text">
+          A 20-year life expectancy gap across five miles of the same city
+          is not acceptable. It is not inevitable. It is a solvable problem.
+          Food is a significant part of the solution.
+          <span class="belief-stat">68 vs. 88 years. Same city. Five miles.</span>
+        </p>
+      </div>
+      <div class="belief-card">
+        <span class="belief-num">03</span>
+        <p class="belief-text">
+          Every stakeholder has a role: the healthcare system, health insurers,
+          nonprofits, universities, farmers, the private sector, the city itself.
+          <em>Together they are unstoppable. Apart, they are underfunded.</em>
+        </p>
+      </div>
+      <div class="belief-card">
+        <span class="belief-num">04</span>
+        <p class="belief-text">
+          Farmers are healthcare providers. Pennsylvania grows some of the best
+          food in the country less than 50 miles from our neighborhoods.
+          That supply chain is a public health asset.
+        </p>
+      </div>
+      <div class="belief-card">
+        <span class="belief-num">05</span>
+        <p class="belief-text">
+          MANNA proves it. When you deliver the right food to sick people,
+          hospitalizations get cut in half and monthly healthcare costs fall significantly.
+          These are not soft outcomes. <em>This is return on investment.</em>
+          <span class="belief-stat">31% lower healthcare costs. Hospitalizations cut in half.</span>
+        </p>
+      </div>
+      <div class="belief-card">
+        <span class="belief-num">06</span>
+        <p class="belief-text">
+          The city that pioneered health insurance in 1938 should be the city
+          that proves food as medicine in 2026. That's not nostalgia.
+          That's a mission.
+        </p>
+      </div>
+      <div class="belief-card">
+        <span class="belief-num">07</span>
+        <p class="belief-text">
+          Large institutions belong at this table. The companies that feed Philadelphia
+          — in hospitals, on campuses, in stadiums, on every corner —
+          are part of the prescription. Aligning them is the work.
+        </p>
+      </div>
+      <div class="belief-card">
+        <span class="belief-num">08</span>
+        <p class="belief-text">
+          One summit is a start. One coalition is a movement. This has to
+          outlast any event, any grant cycle, any administration.
+          Philadelphia needs a permanent, coordinated voice on food as medicine.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOUNDING VOICES -->
+<div class="voices-section" id="voices">
+  <div class="section-inner">
+    <div class="label reveal">Founding voices</div>
+    <h2 class="section-title reveal">The people<br><span class="red">standing up.</span></h2>
+    <p class="body reveal" style="max-width:640px;">
+      Coalitions are built by institutions. But they're <strong>moved by people.</strong>
+      These are the individuals — clinicians, athletes, researchers, chefs, farmers,
+      and community leaders — who are lending their voice to Philadelphia's food as medicine movement.
+    </p>
+    <div class="voices-grid reveal">
+
+      <div class="voice-card">
+        <span class="voice-tag">Founder &amp; Convener</span>
+        <div class="voice-name">Mike Cangi</div>
+        <div class="voice-title">Founder, FareRx<br>Philadelphia, PA</div>
+      </div>
+
+      <div class="voice-card">
+        <span class="voice-tag">Academic Partner</span>
+        <div class="voice-name">David Sarwer</div>
+        <div class="voice-title">Temple University<br>College of Public Health</div>
+      </div>
+
+      <div class="voice-card">
+        <span class="voice-tag">Summit Co-Organizer</span>
+        <div class="voice-name">Danielle Nierenberg</div>
+        <div class="voice-title">President, Food Tank<br>Washington, D.C.</div>
+      </div>
+
+      <div class="voice-card invite" onclick="openModal('individual')">
+        <div class="voice-invite-icon">+</div>
+        <div class="voice-invite-text"><strong>Add your name</strong><br>to the founding declaration</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- NATIONAL -->
+<div class="national-section">
+  <div class="section-inner">
+    <div class="label reveal">National organizations. Philadelphia presence.</div>
+    <h2 class="section-title reveal">Where the<br>national work<br>comes to life.</h2>
+    <p class="body reveal" style="max-width:680px;">
+      The organizations shaping the food as medicine conversation nationally
+      already have deep roots here. Philadelphia isn't just a participant —
+      <strong>it's where the national work gets proven.</strong>
+    </p>
+    <div class="nat-grid reveal">
+      <div class="nat-card">
+        <span class="nat-abbr">Food Tank</span>
+        <span class="nat-name">Summit Co-Organizer</span>
+        <span class="nat-badge">Co-Organizer · Fall 2026</span>
+        <p class="nat-desc">
+          The nation's leading food policy think tank and proven summit organizer.
+          Co-organizing the Philadelphia Food as Medicine Summit, Fall 2026 —
+          bringing their network, templates, and national reach to Philadelphia.
+        </p>
+      </div>
+      <div class="nat-card">
+        <span class="nat-abbr">AHA</span>
+        <span class="nat-name">American Heart Association</span>
+        <p class="nat-desc">
+          Active Philadelphia board and regional programs focused on cardiovascular health
+          and social determinants of health. A natural partner in a city
+          where cardiometabolic disease and food insecurity converge.
+        </p>
+      </div>
+      <div class="nat-card">
+        <span class="nat-abbr">ADA</span>
+        <span class="nat-name">American Diabetes Association</span>
+        <p class="nat-desc">
+          Driving food as medicine policy nationally — in a city where diabetes rates
+          and food insecurity intersect at some of the highest concentrations in the country.
+        </p>
+      </div>
+      <div class="nat-card">
+        <span class="nat-abbr">FIMC</span>
+        <span class="nat-name">Food is Medicine Coalition</span>
+        <p class="nat-desc">
+          The national coalition advancing medically tailored meals as standard of care —
+          of which Philadelphia's own MANNA is a proud, active founding member.
+        </p>
+      </div>
+      <div class="nat-card">
+        <span class="nat-abbr">RWJF</span>
+        <span class="nat-name">Robert Wood Johnson Foundation</span>
+        <p class="nat-desc">
+          The nation's largest public health philanthropy — and the organization whose
+          research documented Philadelphia's 20-year life expectancy gap in detail,
+          making the case this coalition is built to answer.
+        </p>
+      </div>
+      <div class="nat-card">
+        <span class="nat-abbr">FareRx</span>
+        <span class="nat-name">Founding Organization</span>
+        <span class="nat-badge">Philadelphia-Based</span>
+        <p class="nat-desc">
+          Philadelphia's own medically tailored meal and grocery organization —
+          delivering food as medicine to members managing chronic conditions,
+          with a teaching kitchen and clinical team rooted in the city.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DECLARATION -->
+<div class="declaration" id="declaration">
+  <div class="declaration-inner">
+    <div class="label reveal">Therefore, we declare</div>
+    <p class="declare-text reveal">
+      "We are founding the
+      <strong>Philadelphia Food as Medicine Coalition</strong> —
+      a permanent, city-level body that connects every institution, clinician,
+      farmer, insurer, researcher, and community organization working to make
+      Philadelphia healthier. We are done working in silos.
+      We are done waiting for a national model to emerge.
+      <strong>We are the model.</strong>"
+    </p>
+    <p class="declare-attr reveal">Philadelphia, Pennsylvania · 2026</p>
+  </div>
+</div>
+
+<!-- CTA / SIGN -->
+<div class="cta" id="join">
+  <p class="cta-eyebrow reveal">Fall 2026 · Philadelphia, PA</p>
+  <h2 class="cta-title reveal">
+    <span class="red">Join</span><br>
+    <span class="blue">Us.</span>
+  </h2>
+  <p class="cta-body reveal">
+    We're building the founding coalition now. There are two ways in —
+    as an <strong>individual voice</strong> or as a <strong>founding organization.</strong>
+    Both matter. Pick your path.
+  </p>
+
+  <div class="sign-paths reveal">
+    <button class="sign-path" onclick="openModal('individual')">
+      <span class="sign-path-tag">For individuals</span>
+      <div class="sign-path-title">Sign the<br>Declaration</div>
+      <p class="sign-path-desc">Add your name to the founding list. Clinicians, farmers, athletes, researchers, community members — everyone has a stake in this.</p>
+      <span class="sign-path-cta">Sign Now →</span>
+    </button>
+    <button class="sign-path" onclick="openModal('org')">
+      <span class="sign-path-tag">For organizations</span>
+      <div class="sign-path-title">Join as a<br>Founding Org</div>
+      <p class="sign-path-desc">Apply to join the coalition as a founding organizational partner. For nonprofits, health systems, academic institutions, and private sector leaders.</p>
+      <span class="sign-path-cta">Apply →</span>
+    </button>
+  </div>
+
+  <p class="cta-details reveal">Inaugural Summit · Fall 2026 · Philadelphia, PA</p>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-flag"></div>
+  <div class="footer-inner">
+    <div class="footer-logo">Philadelphia Food as Medicine Coalition · Est. 2026</div>
+    <div class="footer-links">
+      <a href="#situation">The Problem</a>
+      <a href="#orgs">Partners</a>
+      <a href="#declaration">Declaration</a>
+      <a href="#" onclick="openModal('individual');return false;">Sign</a>
+    </div>
+    <div class="footer-credit">philafoodismedicine.org</div>
+  </div>
+</footer>
+
+<!-- ── MODAL: INDIVIDUAL ── -->
+<div class="modal-overlay" id="modal-individual" onclick="if(event.target===this)closeModal('individual')">
+  <div class="modal">
+    <div class="modal-flag"></div>
+    <button class="modal-close" onclick="closeModal('individual')">✕</button>
+
+    <div id="form-individual">
+      <div class="modal-header">
+        <div class="modal-tag">Individual Declaration</div>
+        <div class="modal-title">Sign the<br>Declaration</div>
+        <p class="modal-sub">Add your name to the founding list of Philadelphians and allies who believe food is medicine.</p>
+      </div>
+      <div class="modal-body">
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name *</label>
+            <input type="text" id="i-first" placeholder="Rocky">
+          </div>
+          <div class="form-group">
+            <label>Last Name *</label>
+            <input type="text" id="i-last" placeholder="Balboa">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email Address *</label>
+          <input type="email" id="i-email" placeholder="you@example.com">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Title / Role</label>
+            <input type="text" id="i-title" placeholder="Physician, Farmer, Chef…">
+          </div>
+          <div class="form-group">
+            <label>Organization</label>
+            <input type="text" id="i-org" placeholder="Where you work or live">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Philadelphia neighborhood or city</label>
+          <input type="text" id="i-location" placeholder="North Philly, South Philly, suburbs…">
+        </div>
+        <button class="form-submit red-btn" onclick="submitIndividual()">I Stand With This Coalition →</button>
+        <p class="form-note">Your name and city may appear on the public founding list.<br>Your email will only be used for coalition updates.</p>
+      </div>
+    </div>
+
+    <div class="success-state" id="success-individual">
+      <div class="success-icon">🤝</div>
+      <div class="success-title">You're In.</div>
+      <p class="success-body">Thank you for signing the declaration. We'll be in touch before the Fall 2026 summit with next steps. Philadelphia is better because of people like you.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── MODAL: ORGANIZATION ── -->
+<div class="modal-overlay" id="modal-org" onclick="if(event.target===this)closeModal('org')">
+  <div class="modal">
+    <div class="modal-flag"></div>
+    <button class="modal-close" onclick="closeModal('org')">✕</button>
+
+    <div id="form-org">
+      <div class="modal-header">
+        <div class="modal-tag">Organizational Partnership</div>
+        <div class="modal-title">Join as a<br>Founding Org</div>
+        <p class="modal-sub">We're building the founding organizational roster now. Tell us about your organization and why you want in.</p>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Organization Name *</label>
+          <input type="text" id="o-org" placeholder="Your organization">
+        </div>
+        <div class="form-group">
+          <label>Organization Type *</label>
+          <select id="o-type">
+            <option value="" disabled selected>Select one</option>
+            <option>Nonprofit / Community Org</option>
+            <option>Health System / Hospital</option>
+            <option>Academic Institution</option>
+            <option>Health Insurance / Payer</option>
+            <option>Private Sector / Corporate</option>
+            <option>Government / City Agency</option>
+            <option>Farm / Agricultural</option>
+            <option>Foundation / Philanthropy</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Your Name *</label>
+            <input type="text" id="o-name" placeholder="Full name">
+          </div>
+          <div class="form-group">
+            <label>Your Title *</label>
+            <input type="text" id="o-title" placeholder="CEO, Director…">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email Address *</label>
+          <input type="email" id="o-email" placeholder="you@yourorg.com">
+        </div>
+        <div class="form-group">
+          <label>Website</label>
+          <input type="url" id="o-website" placeholder="https://yourorg.org">
+        </div>
+        <div class="form-group">
+          <label>Why do you want to join? What does your organization bring?</label>
+          <textarea id="o-why" placeholder="Tell us about your work and how you see your organization contributing to the coalition…"></textarea>
+        </div>
+        <button class="form-submit blue-btn" onclick="submitOrg()">Submit Application →</button>
+        <p class="form-note">Founding organizational memberships are reviewed personally by the coalition leadership team. You'll hear back within 5 business days.</p>
+      </div>
+    </div>
+
+    <div class="success-state" id="success-org">
+      <div class="success-icon">🏛️</div>
+      <div class="success-title">Application Received.</div>
+      <p class="success-body">Thank you for applying to join as a founding organization. Coalition leadership will review your application personally and be in touch within 5 business days.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── REVEAL ON SCROLL ──
+const reveals = document.querySelectorAll('.reveal');
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const siblings = [...entry.target.parentElement.querySelectorAll('.reveal:not(.visible)')];
+      const idx = siblings.indexOf(entry.target);
+      setTimeout(() => entry.target.classList.add('visible'), Math.min(idx * 70, 280));
+      revealObs.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.06, rootMargin: '0px 0px -24px 0px' });
+reveals.forEach(el => revealObs.observe(el));
+
+// ── COUNTER ──
+function animateCount(el) {
+  const target = parseInt(el.dataset.target);
+  const duration = 1400;
+  const start = performance.now();
+  const update = (now) => {
+    const p = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - p, 3);
+    el.textContent = Math.round(ease * target);
+    if (p < 1) requestAnimationFrame(update);
+  };
+  requestAnimationFrame(update);
+}
+const countObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { animateCount(e.target); countObs.unobserve(e.target); } });
+}, { threshold: 0.5 });
+document.querySelectorAll('.count[data-target]').forEach(el => countObs.observe(el));
+
+// ── SOURCE TOOLTIPS: tap on mobile ──
+document.querySelectorAll('.src').forEach(el => {
+  el.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const wasActive = this.classList.contains('active');
+    document.querySelectorAll('.src.active').forEach(s => s.classList.remove('active'));
+    if (!wasActive) this.classList.add('active');
+  });
+});
+document.addEventListener('click', () => {
+  document.querySelectorAll('.src.active').forEach(s => s.classList.remove('active'));
+});
+
+// ── MODAL ──
+function openModal(type) {
+  document.getElementById('modal-' + type).classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(type) {
+  document.getElementById('modal-' + type).classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    ['individual','org'].forEach(t => {
+      document.getElementById('modal-' + t).classList.remove('open');
+    });
+    document.body.style.overflow = '';
+  }
+});
+
+function submitIndividual() {
+  const first = document.getElementById('i-first').value.trim();
+  const last = document.getElementById('i-last').value.trim();
+  const email = document.getElementById('i-email').value.trim();
+  if (!first || !last || !email) {
+    alert('Please fill in your name and email to sign.');
+    return;
+  }
+  document.getElementById('form-individual').style.display = 'none';
+  document.getElementById('success-individual').classList.add('show');
+}
+
+function submitOrg() {
+  const org = document.getElementById('o-org').value.trim();
+  const name = document.getElementById('o-name').value.trim();
+  const email = document.getElementById('o-email').value.trim();
+  const type = document.getElementById('o-type').value;
+  if (!org || !name || !email || !type) {
+    alert('Please fill in all required fields.');
+    return;
+  }
+  document.getElementById('form-org').style.display = 'none';
+  document.getElementById('success-org').classList.add('show');
+}
+</script>
+</body>
+</html>
