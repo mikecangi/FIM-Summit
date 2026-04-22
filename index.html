@@ -473,9 +473,107 @@ footer{background:var(--black) !important;padding:32px 48px;}
   .stat-col{border-left:none !important;}
   .stat-col:last-child{border-bottom:none;}
 }
+
+/* ── PASSWORD GATE ── */
+#password-gate{
+  position:fixed;inset:0;z-index:10000;
+  background:#F5F0E8;
+  display:flex;align-items:center;justify-content:center;
+  padding:24px;
+}
+#password-gate .gate-inner{
+  max-width:420px;width:100%;
+  text-align:center;
+}
+#password-gate .gate-dot{
+  width:12px;height:12px;border-radius:50%;
+  background:var(--red);margin:0 auto 24px;
+}
+#password-gate h1{
+  font-family:'DM Serif Display',serif;
+  font-size:32px;line-height:1.15;
+  color:var(--black);margin-bottom:12px;
+  font-weight:400;
+}
+#password-gate p{
+  font-size:13px;color:var(--mid);
+  letter-spacing:0.02em;margin-bottom:24px;
+}
+#password-gate form{
+  display:flex;flex-direction:column;gap:12px;
+}
+#password-gate input{
+  width:100%;padding:14px 16px;
+  font-family:'DM Sans',system-ui,sans-serif;
+  font-size:15px;color:var(--text);
+  background:#fff;
+  border:1px solid var(--rule);
+  border-radius:2px;outline:none;
+}
+#password-gate input:focus{
+  border-color:var(--blue);
+}
+#password-gate button{
+  padding:14px 16px;
+  font-family:'DM Sans',system-ui,sans-serif;
+  font-size:12px;font-weight:500;
+  letter-spacing:0.1em;text-transform:uppercase;
+  color:#fff;background:var(--black);
+  border:none;border-radius:2px;
+  cursor:pointer;
+}
+#password-gate button:hover{background:var(--blue);}
+#password-gate .gate-error{
+  font-size:12px;color:var(--red);
+  min-height:16px;margin-top:4px;
+  letter-spacing:0.02em;
+}
+body.locked{overflow:hidden;}
+body.locked > *:not(#password-gate){
+  display:none !important;
+}
 </style>
 </head>
-<body>
+<body class="locked">
+
+<!-- PASSWORD GATE -->
+<div id="password-gate">
+  <div class="gate-inner">
+    <div class="gate-dot"></div>
+    <h1>Phila. Food as Medicine Coalition</h1>
+    <p>Please enter the password to continue.</p>
+    <form id="gate-form" onsubmit="return checkPassword(event);">
+      <input type="password" id="gate-input" placeholder="Password" autocomplete="off" autofocus>
+      <button type="submit">Enter</button>
+      <div class="gate-error" id="gate-error"></div>
+    </form>
+  </div>
+</div>
+
+<script>
+(function(){
+  if (sessionStorage.getItem('fim-auth') === 'ok') {
+    document.body.classList.remove('locked');
+    var gate = document.getElementById('password-gate');
+    if (gate) gate.style.display = 'none';
+  }
+})();
+function checkPassword(e){
+  e.preventDefault();
+  var input = document.getElementById('gate-input');
+  var err = document.getElementById('gate-error');
+  if (input.value === 'foodismedicine') {
+    sessionStorage.setItem('fim-auth','ok');
+    document.body.classList.remove('locked');
+    document.getElementById('password-gate').style.display = 'none';
+  } else {
+    err.textContent = 'Incorrect password. Please try again.';
+    input.value = '';
+    input.focus();
+  }
+  return false;
+}
+</script>
 
 <!-- NAV -->
 <nav>
